@@ -31,6 +31,7 @@ void LibererPile (pile_t * pile) {
     free((*pile).base);
     /* On libère la pile */
     free(pile);
+    pile = NULL;
 }
 
 
@@ -50,12 +51,11 @@ int Empiler(pile_t * pile, type v) {
     /* Si la pile est pleine, on redimensionne, sinon, on empile */
     if (EstPleinePile(pile)) {
 
-        int nvCapacite = 1.5*(*pile).capacite + 1;
         /* + 1 pour le cas ou la capacite vaut 1 */
-        codeErreur = RedimensionerPile(pile, nvCapacite);
+        int nvCapacite = 1.5*(*pile).capacite + 1;
 
         /* Si le redimensionnement a fonctionne, on empile la valeur */
-        if (codeErreur == 0)
+        if (RedimensionerPile(pile, nvCapacite))
             codeErreur = Empiler(pile, v);
 
     } else {
@@ -76,13 +76,14 @@ int Depiler (pile_t * pile, type * v) {
         codeErreur = 0;
         *v = (*pile).base [(*pile).sommet];
         (*pile).sommet --;
+
+        /* Si la pile est tres peu utilise, on diminue la taille */
+        if ((*pile).sommet < (int)0.25*(*pile).capacite) {
+            int nvCapacite = 0.5*(*pile).capacite;
+            RedimensionerPile(pile, nvCapacite);
+        }
     }
 
-    /* Si la pile est tres peu utilise, on diminue la taille */
-    if ((*pile).sommet < (int)0.25*(*pile).capacite) {
-        int nvCapacite = 0.5*(*pile).capacite;
-        RedimensionerPile(pile, nvCapacite);
-    }
     return codeErreur;
 }
 
@@ -134,7 +135,7 @@ void AfficherPileChaineCarac (char * chaine) {
 }
 
 
-char * AfficherPileDansChaine (pile_t * pile, void (*pfAfficher) (type, char *), int taille) {
+char * EcrirePileDansChaine (pile_t * pile, void (*pfAfficher) (type, char *), int taille) {
     /* On alloc une taille previsionnel de l'affichage de la pile */
     char * chaine = malloc( taille*(*pile).capacite*sizeof(char) ); /* pointeur sur la debut de la chaine */
     char * cour = chaine;   /* pointeur que la fin de la chaine */
@@ -156,11 +157,11 @@ char * AfficherPileDansChaine (pile_t * pile, void (*pfAfficher) (type, char *),
 }
 
 
-void AfficherPileIntDansChaine(int nombre, char * chaine) {
+void EcrirePileIntDansChaine(int nombre, char * chaine) {
     sprintf(chaine, "%d ", nombre);
 }
 
 
-void AfficherPileCharDansChaine(char carac, char * chaine) {
+void EcrirePileCharDansChaine(char carac, char * chaine) {
     sprintf(chaine, "%c ", carac);
 }

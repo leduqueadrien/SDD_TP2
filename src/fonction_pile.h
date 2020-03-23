@@ -130,7 +130,7 @@ void AfficherPileChar (char);
 void AfficherPileChaineCarac (char *);
 
 /* ----------------------------------------------------------------------------------------- */
-/* AfficherPileDansChaine       Affiche la pile dans une chaine de caractère                 */
+/* AfficherPileDansChaine       Retourne l'affichage la pile dans une chaine de caractère    */
 /*                                                                                           */
 /* En entrée : pile (pile_t *) : pile a afficher                                             */
 /*             pfAfficher (void (*)(type)) : pointeur sur la fonction qui affiche un élément */
@@ -139,10 +139,10 @@ void AfficherPileChaineCarac (char *);
 /*                                                                                           */
 /* En sortie : chaine (char *) : chaine de caractère contenant l'affichage de la pile        */
 /* ----------------------------------------------------------------------------------------- */
-char * AfficherPileDansChaine (pile_t *, void (*) (type, char *), int);
+char * EcrirePileDansChaine (pile_t *, void (*) (type, char *), int);
 
 /* ---------------------------------------------------------------------- */
-/* AfficherPileIntDansChaine      Affiche un élément de type int          */
+/* AfficherPileIntDansChaine      Retourne un élément de type int         */
 /*                                 dans une chaine de caractère           */
 /*                                                                        */
 /* En entrée : nombre (int)    : nombre a afficher                        */
@@ -150,10 +150,10 @@ char * AfficherPileDansChaine (pile_t *, void (*) (type, char *), int);
 /*                                                                        */
 /* En sortie : void                                                       */
 /* ---------------------------------------------------------------------- */
-void AfficherPileIntDansChaine(int, char *);
+void EcrirePileIntDansChaine(int, char *);
 
 /* -------------------------------------------------------------------------- */
-/* AfficherPileCharDansChaine      Affiche un élément de type char            */
+/* AfficherPileCharDansChaine      Retourne un élément de type char           */
 /*                                 dans une chaine de caractère               */
 /*                                                                            */
 /* En entrée : caractere (char) : caractère a afficher                        */
@@ -161,7 +161,7 @@ void AfficherPileIntDansChaine(int, char *);
 /*                                                                            */
 /* En sortie : void                                                           */
 /* -------------------------------------------------------------------------- */
-void AfficherPileCharDansChaine(char, char *);
+void EcrirePileCharDansChaine(char, char *);
 
 
 
