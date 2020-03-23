@@ -1,9 +1,9 @@
 
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-#include"testUnitairePile.h"
-#include"fonction_pile.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "testPile.h"
+#include "pile.h"
 
 
 int TestUnitairePile () {

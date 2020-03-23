@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "testUnitaireFile.h"
-#include "fonction_file.h"
+#include "testFile.h"
+#include "file.h"
 
 int TestUnitaireFile () {
     int code = 1;

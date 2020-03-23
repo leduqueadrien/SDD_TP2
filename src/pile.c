@@ -1,8 +1,8 @@
 
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-#include"fonction_pile.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "pile.h"
 
 
 pile_t * InitPile(int capacite) {

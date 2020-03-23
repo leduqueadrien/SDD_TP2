@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "fonction_file.h"
+#include "file.h"
 
 
 file_t * initFile(int capacite) {

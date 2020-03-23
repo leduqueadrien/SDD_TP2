@@ -1,9 +1,9 @@
 
 #include <stdio.h>
-#include "testUnitairePile.h"
-#include "testUnitaireFile.h"
-#include "fonction_pile.h"
-#include "fonction_file.h"
+#include "testPile.h"
+#include "testFile.h"
+#include "pile.h"
+#include "file.h"
 
 
 
