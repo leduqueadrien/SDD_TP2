@@ -1,14 +1,14 @@
-/* ------------------------------------------------------------------- */
-/*  file.h                                                             */
-/*          Contient les déclarations des fonctions du fichiers file.c */
-/* ------------------------------------------------------------------- */
-#ifndef FILE
-#define FILE
+/* ---------------------------------------------------------------------------- */
+/*  file.h                                                                      */
+/*          Contient les déclarations des fonctions du fichiers file.c          */
+/* ---------------------------------------------------------------------------- */
 
+#ifndef FILE_H
+#define FILE_H
 
-/* ------------------------------------------------- */
-/* Renommage du type dont que l'on souhaite utiliser */
-/* ------------------------------------------------- */
+/* ------------ */
+/* Type utilisé */
+/* ------------ */
 typedef char type;
 
 
@@ -16,122 +16,97 @@ typedef char type;
 /* Structure de la file */
 /* -------------------- */
 typedef struct file {
-    int capacite;
-    int sommet;
-    int queu;
-    type * base;
-} file_t;
+	int    capacite;
+	int    nbElements;
+	int    indexInsertion;
+	int    indexSuppression;
+	type * base;
+}file_t;
 
-
-/* -------------------------------------------------------------- */
-/* InitFile     Initialise une file de taille le paramètre taille */
-/*                                                                */
-/* En entrée :  taille (int) : taille de la file                  */
-/*                                                                */
-/* En sortie :  file : pointeur sur la file (file_t *)            */
-/* -------------------------------------------------------------- */
-file_t * InitFile (int);
 
 /* --------------------------------------------------------------------- */
-/* EstVideFile  Indique si la file passée en paramètre est vide ou non   */
+/* initFile     Initialise une file de taille le paramètre taille        */
+/*                                                                       */
+/* En entrée :  pile : pile_t * : pile à tester                          */
+/*                                                                       */
+/* En sortie :  file : pointeur sur la file (file_t *)                   */
+/* --------------------------------------------------------------------- */
+file_t * initFile(int);
+
+
+/* --------------------------------------------------------------------- */
+/* estVideFile  Indique si la file passée en paramètre est vide ou non   */
 /*                                                                       */
 /* En entrée :  file (file_t *) : file à tester                          */
 /*                                                                       */
-/* En sortie :  estVide (int) booléen : 1 si la File est vide, 0 sinon  */
+/* En sortie :  (char) booléen : 1 si la file est vide, 0 sinon          */
 /* --------------------------------------------------------------------- */
-int EstVideFile (file_t *);
+char estVideFile(file_t *);
+
+
+/* ------------------------------------------------------------------------ */
+/* estPleineFile  Indique si la file passée en paramètre est pleine ou non  */
+/*                                                                          */
+/* En entrée :  file (file_t *) : file à tester                             */
+/*                                                                          */
+/* En sortie :  (char) booléen : 1 si la file est pleine, 0 sinon           */
+/* ------------------------------------------------------------------------ */
+char estPleineFile(file_t * file);
+
 
 /* ------------------------------------------------------------------ */
-/* Enfiler      Emfile une valeur à la queu de la file,               */
+/* emfiler      Emfile une valeur à la fin de la file,                */
 /*                          et l'aggrandit si elle est trop petite    */
 /*                                                                    */
 /* En entrée :  file (file_t *) : file à remplir                      */
-/*              valeur (type)   : élément à enfiler                   */
+/*              valeur (int)    : valeur à enfiler                    */
 /*                                                                    */
-/* En sortie :  codeErreur (int) booléen : 1 si erreur, 0 sinon       */
+/* En sortie :  codeErreur (char) booléen : 1 si erreur, 0 sinon      */
 /* ------------------------------------------------------------------ */
-int Enfiler (file_t *, type);
+char enfiler(file_t * file, type valeur);
+
 
 /* -------------------------------------------------------------- */
-/* Defiler      Défile la valeur au sommet de la File,            */
+/* defiler      Défile la valeur en tête de la file,              */
 /*                          et la réduit si elle peu utilisée     */
 /*                                                                */
-/* En entrée :  file (file_t *) : file à vider                    */
-/*              valeur (type)   : élément défilée                 */
+/* En entrée :  file (file_t *) : pile à vider                    */
+/*              valeur (int)    : valeur dépifée (par adresse)    */
 /*                                                                */
-/* En sortie :  codeErreur (int) booléen : 2 si erreur, 0 sinon   */
+/* En sortie :  codeErreur (char) booléen : 2 si erreur, 0 sinon  */
 /* -------------------------------------------------------------- */
-int Defiler (file_t *, type *);
+char defiler(file_t * file, type * valeur);
+
 
 /* --------------------------------------------------------------------- */
-/* RedimensionerFile    Redimensionne la base de la file                 */
+/* redimensionnerFile   Redimensionne la file en copiant les             */
+/*                          et la réduit si elle peu utilisée            */
 /*                                                                       */
-/* En entrée : file (file_t *) : file a redimensionner                   */
-/*             nvCapacité (int) : taille que la nouvelle base doit avoir */
+/* En entrée :  file (file_t *)    : file à redimmensionner              */
+/*              nouvCapacite (int) : taille de la nouvelle file          */
 /*                                                                       */
-/* En sortie : codeErreur (int) booléen : 1 si le redimensionnement      */
-/*                                  n'a pas pu être fait, 0 sinon        */
+/* En sortie :  codeErreur (char) booléen : 1 si erreur, 0 sinon         */
 /* --------------------------------------------------------------------- */
-int RedimensionnerFile (file_t *, int);
+char redimensionnerFile(file_t * file, int nouvCapacite);
 
-/* ------------------------------------------------------------------ */
-/* CpyBlocMem       Copy le bloc mémoire d'adresse de debut "deb"     */
-/*                   et d'adresse de fin "fin" à l'adresse "dest"     */
-/*                                                                    */
-/* En entrée : deb (int *) : adresse du debut du boc mémoire a copier */
-/*             fin (int *) : adresse de fin du bloc mémoire a copier  */
-/*             dest (int *) : adresse ou l'on copy le bloc mémoire    */
-/*                                                                    */
-/* En sortie : void                                                   */
-/* ------------------------------------------------------------------ */
-void CpyBlocMem (type *, type *, type *);
 
 /* --------------------------------------------------------- */
-/* LibererFile  Libère la mémoire utilisée par la file       */
+/* libererFile  Libère la mémoire utilisée par la file       */
 /*                                                           */
-/* En entrée :  file (file_t *) : File à libérer             */
+/* En entrée :  file (file_t *) : file à libérer             */
 /*                                                           */
 /* En sortie :  void                                         */
 /* --------------------------------------------------------- */
-void LibererFile (file_t *);
-
-/* ----------------------------------------------------------------------------------------- */
-/* AfficherFile     Affiche le file                                                          */
-/*                                                                                           */
-/* En entrée : file (file_t *) : file a afficher                                             */
-/*             pfAfficher (void (*)(type)) : pointeur sur la fonction qui affiche un élément */
-/*                                                                                           */
-/* En sortie : void                                                                          */
-/* ----------------------------------------------------------------------------------------- */
-void AfficherFile (file_t *, void (*) (type));
+void libererFile(file_t * file);
 
 
-/* --------------------------------------------------- */
-/* AfficherFileInt      Affiche un élément de type int */
-/*                                                     */
-/* En entrée : nombre (int) : nombre a afficher        */
-/*                                                     */
-/* En sortie : void                                    */
-/* --------------------------------------------------- */
-void AfficherFileInt (int);
 
-/* ---------------------------------------------------- */
-/* AfficherFileChar      Affiche un élément de type char */
-/*                                                      */
-/* En entrée : caractere (char) : carectere a afficher  */
-/*                                                      */
-/* En sortie : void                                     */
-/* ---------------------------------------------------- */
-void AfficherFileChar (char);
+void afficherFile(file_t * file, void (*pfAfficher) (type));
 
-/* --------------------------------------------------------------------------- */
-/* AfficherFileChaineCarac      Affiche un élément de type chaine de caractère */
-/*                                                                             */
-/* En entrée : chaine (char *) : chaine a afficher                             */
-/*                                                                             */
-/* En sortie : void                                                            */
-/* --------------------------------------------------------------------------- */
-void AfficherFileChaineCarac (char *);
+void afficherFileInt(int nombre);
+void afficherFileChar(char caractere);
+void afficherFileChaineChar(char * chaine);
+
 
 /* ----------------------------------------------------------------------------------------- */
 /* AfficherFileDansChaine       Affiche la File dans une chaine de caractère                 */
@@ -144,7 +119,7 @@ void AfficherFileChaineCarac (char *);
 /*                                                                                           */
 /* En sortie : chaine (char *) : chaine de caractère contenant l'affichage de la File        */
 /* ----------------------------------------------------------------------------------------- */
-char * AfficherFileDansChaine (file_t *, void (*) (type, char *), int);
+char * ecrireFileDansChaine (file_t *, void (*) (type, char *), int);
 
 
 /* ---------------------------------------------------------------------- */
@@ -156,7 +131,7 @@ char * AfficherFileDansChaine (file_t *, void (*) (type, char *), int);
 /*                                                                        */
 /* En sortie : void                                                       */
 /* ---------------------------------------------------------------------- */
-void AfficherFileIntDansChaine(int, char *);
+void ecrireFileIntDansChaine(int, char *);
 
 /* -------------------------------------------------------------------------- */
 /* AfficherFileCharDansChaine      Affiche un élément de type char            */
@@ -167,6 +142,7 @@ void AfficherFileIntDansChaine(int, char *);
 /*                                                                            */
 /* En sortie : void                                                           */
 /* -------------------------------------------------------------------------- */
-void AfficherFileCharDansChaine(char, char *);
+void ecrireFileCharDansChaine(char, char *);
+
 
 #endif

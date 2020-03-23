@@ -9,14 +9,17 @@ pile_t * InitPile(int capacite) {
 
     /* Allocation de la pile */
     pile_t * pile = (pile_t*) malloc(sizeof(pile_t));
+
     if (pile != NULL) { 
         (*pile).base = NULL;
+
         /* Allocation de la base de la pile */
         (*pile).base = (type*)malloc(capacite*sizeof(type));
         
         if ((*pile).base != NULL) {
             (*pile).capacite = capacite;
             (*pile).sommet = -1;
+
         } else {    /* Si l'allocation c'est pas faite, on libère la pile */
             free(pile);     
             pile = NULL;
@@ -26,7 +29,7 @@ pile_t * InitPile(int capacite) {
 }
 
 
-void LibererPile (pile_t * pile) {
+void LibererPile(pile_t * pile) {
     /* On libère la base */
     free((*pile).base);
     /* On libère la pile */
@@ -35,12 +38,12 @@ void LibererPile (pile_t * pile) {
 }
 
 
-int EstVidePile (pile_t * pile) {
+int EstVidePile(pile_t * pile) {
     return (*pile).sommet == -1;
 }
 
 
-int EstPleinePile (pile_t * pile) {
+int EstPleinePile(pile_t * pile) {
     return (*pile).capacite == (*pile).sommet + 1;
 }
 

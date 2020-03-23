@@ -60,7 +60,7 @@ int TestAfficherPile () {
     pile_t * pile = InitPile(3);
     char * chaine;
 
-    chaine = AfficherPileDansChaine(pile, &AfficherPileCharDansChaine, 4);
+    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
     printf("Affichage pile vide : ");
     if (!strcmp("vide", chaine)) {
         printf("bon\n");
@@ -71,7 +71,7 @@ int TestAfficherPile () {
     free(chaine);
     
     Empiler(pile, '1');
-    chaine = AfficherPileDansChaine(pile, &AfficherPileCharDansChaine, 4);
+    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
     printf("Affichage pile 1 element : ");
     if (!strcmp("1 ", chaine)) {
         printf("bon\n");
@@ -83,7 +83,7 @@ int TestAfficherPile () {
 
     Empiler(pile, '2');
     Empiler(pile, '3');
-    chaine = AfficherPileDansChaine(pile, &AfficherPileCharDansChaine, 4);
+    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
     printf("Affichage pile pleine : ");
     if (!strcmp("1 2 3 ", chaine)) {
         printf("bon\n");
@@ -223,7 +223,7 @@ int TestEmpiler () {
     char * chaine;
 
     Empiler(pile, '1');
-    chaine = AfficherPileDansChaine(pile, &AfficherPileCharDansChaine, 4);
+    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
     printf("Empiler un element : ");
     if (!strcmp("1 ", chaine)) {
         printf("bon\n");
@@ -235,7 +235,7 @@ int TestEmpiler () {
 
     Empiler(pile, '2');
     Empiler(pile, '4');
-    chaine = AfficherPileDansChaine(pile, &AfficherPileCharDansChaine, 4);
+    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
     printf("Pile pleine : ");
     if (!strcmp("1 2 4 ", chaine)) {
         printf("bon\n");
@@ -246,7 +246,7 @@ int TestEmpiler () {
     free(chaine);
 
     Empiler(pile, '1');
-    chaine = AfficherPileDansChaine(pile, &AfficherPileCharDansChaine, 4);
+    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
     printf("Redimensionnement : ");
     if (!strcmp("1 2 4 1 ", chaine) && (*pile).capacite == 5) {
         printf("bon\n");
@@ -269,7 +269,7 @@ int TestDepiler () {
     char a = '9';
 
     Depiler(pile, &a);
-    chaine = AfficherPileDansChaine(pile, &AfficherPileCharDansChaine, 4);
+    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
     printf("Depilage a vide : ");
     if (!strcmp("vide", chaine) && a == '9') {
         printf("bon\n");
@@ -282,7 +282,7 @@ int TestDepiler () {
     Empiler(pile, '1');
     Empiler(pile, '2');
     Depiler(pile, &a);
-    chaine = AfficherPileDansChaine(pile, &AfficherPileCharDansChaine, 4);
+    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
     printf("Depilage : ");
     if (!strcmp("1 ", chaine) && a == '2') {
         printf("bon\n");
@@ -295,7 +295,7 @@ int TestDepiler () {
     Empiler(pile, '4');
     Empiler(pile, '5');
     Depiler(pile, &a);
-    chaine = AfficherPileDansChaine(pile, &AfficherPileCharDansChaine, 4);
+    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
     printf("Depilage pile pleine : ");
     if (!strcmp("1 4 ", chaine) && a == '5') {
         printf("bon\n");
@@ -311,7 +311,7 @@ int TestDepiler () {
 
     Empiler(pile, '3');
     Depiler(pile, &a);
-    chaine = AfficherPileDansChaine(pile, &AfficherPileCharDansChaine, 4);
+    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
     printf("Redimenionnement : ");
     if (!strcmp("vide", chaine) && (*pile).capacite == 5 && a == '3') {
         printf("bon\n");

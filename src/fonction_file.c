@@ -1,265 +1,197 @@
+/* ---------------------------------------------------------------------------- */
+/*  file.c                                                                      */
+/*                  Contient les fonctions associées à la file                  */
+/* ---------------------------------------------------------------------------- */
 
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-#include"fonction_file.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "fonction_file.h"
 
 
-file_t * InitFile(int capacite) {
+file_t * initFile(int capacite) {
+    file_t * file = (file_t *)malloc(sizeof(file_t)); /*File créée*/
 
-    /* Allocation de la file */
-    file_t * file = malloc(sizeof(file_t));
-    
     if (file != NULL) {
-        /* Allocation de la base de la file */
-        (*file).base = malloc(capacite*sizeof(type));
+        file->base = (type *)malloc(capacite * sizeof(capacite));
 
-        if ((*file).base != NULL) {
-            (*file).capacite = capacite;
-            (*file).sommet = -1;
-            (*file).queu = -1;
-        } else {    /* Si l'allocation c'est pas faite, on libère la file */
+        /* Erreur de memoire */
+        if (file->base == NULL) {
             free(file);
             file = NULL;
+
+        /* Initialisation de la file */
+        } else {
+            file->capacite         = capacite;
+            file->nbElements       = 0;
+            file->indexSuppression = 0;
+            file->indexInsertion   = 0;
         }
     }
+
     return file;
 }
 
 
-void LibererFile (file_t * file) {
-    /* On libère la base */
-    free((*file).base);
-    /* On libère la file */
-    free(file);
+char estVideFile(file_t * file) {
+    return (file->nbElements == 0);
 }
 
 
-int EstVideFile (file_t * file) {
-    /* La pile est vide que si le sommet et la queu valent -1 */
-    return (*file).sommet == -1;
+char estPleineFile(file_t * file) {
+    return (file->nbElements == file->capacite);
 }
 
 
-int Enfiler (file_t * file, type v) {
-    int code = 1;
+char enfiler(file_t * file, type valeur) {
+    char codeErreur = 1; /*Code erreur*/
 
-    int capacite = (*file).capacite;
-    int sommet = (*file).sommet;
-    int queu = (*file).queu;
-    /* Si la file est pleine, on redimensionne, sinon, on enfile */
-    if ( ( queu <= 0 && sommet == capacite-1 ) || ( queu == sommet+1 ) ) {
+    /* Si la file n'est pas déjà remplie, on enfile la valeur */
+    if (!estPleineFile(file)) {
+        file->base[file->indexInsertion] = valeur;
+        file->indexInsertion = (file->indexInsertion + 1) % file->capacite; /*Index d'insertion suivante*/
 
-        /* + 1 pour le cas ou la capacite vaut 1 */
-        int nvCapacite = 1.5 * (*file).capacite + 1;
-        code = RedimensionnerFile(file, nvCapacite);
+        file->nbElements += 1;
+        codeErreur = 0;
 
-        /* Si le redimensionnement a fonctionne, on enfile l'elements */
-        if (code == 0)
-            code = Enfiler(file, v);
-
+    /* Sinon, il faut redimensionner la file */
     } else {
-        code = 0;
+        int nouvCapacite = 1.5 * file->capacite;
 
-        /* Si le sommet est arrive au bout de la base */
-        if ((*file).sommet == (*file).capacite-1) {
-            /* on met la valeur au debut de la pile */
-            (*file).sommet = 0;
+        /* Si la redimension est sans erreur, on enfile la valeur */
+        if (redimensionnerFile(file, nouvCapacite)) {
+            printf("Redimensionnement impossible\n");
+            codeErreur = 1;
+
         } else {
-            (*file).sommet ++;
-
-            /* Si c'est le premier element que l'on enfile
-            on change la valeur de la queu */
-            if ((*file).queu == -1)
-                (*file).queu = 0;
+            enfiler(file, valeur);
+            codeErreur = 0;
         }
-            
-        (*file).base [(*file).sommet] = v;
-    }
 
-    return code;
+    }
+    return codeErreur;
 }
 
 
-int Defiler (file_t *file, type * v) {
-    int code = 1;
+char defiler(file_t * file, type * valeur) {
+    char codeErreur = 2; /*Code erreur*/
 
-    /* SI la pile est non vide, on defife */
-    if (!EstVideFile(file)) {
-        code = 0;
-        *v = (*file).base [(*file).queu];
+    /* Si la file n'est pas vide, on defile la valeur */
+    if (!estVideFile(file)) {
+        *valeur = file->base[file->indexSuppression];
+        file->indexSuppression = (file->indexSuppression + 1) % file->capacite;
+        file->nbElements -= 1;
+        codeErreur = 0;
 
-        /* Si on defile le dernier element de la file */
-        if ((*file).queu == (*file).sommet) {
-            /* La pile devient vide */
-            (*file).queu = -1;
-            (*file).sommet = -1;
-        } else {
-            /* si la queu est arrive au bout de la file */
-            if ((*file).queu == (*file).capacite-1)
-            /* le prochain element est au debut de la file */
-                (*file).queu = 0;
-            else
-                (*file).queu ++;
-        }
-    }
+        /* Si la file est peu utilisée, on la redimensionne */
+        if (file->nbElements < 0.25 * file->capacite) {
+            int nouvCapacite = 0.5 * file->capacite + 1;
 
-    int queu = (*file).queu;
-    int sommet = (*file).sommet;
-    int capacite = (*file).capacite;
-    /* Si la file est tres peu utilise, on diminue la taille */
-    if ( ( queu <= sommet && sommet-queu+1 < 0.25*capacite ) 
-                || ( queu > sommet && queu-sommet > 0.5*capacite ) ) {
-        int nvCapacite = 0.5 * capacite;
-        RedimensionnerFile(file, nvCapacite);
-    }
-    return code;
-}
-
-
-int RedimensionnerFile (file_t * file, int nvCapacaite) {
-    int code = 1;
-    
-    /* On alloc la mouvelle base */
-    type * nvBase = malloc(nvCapacaite*sizeof(type));
-    if (nvBase != NULL) {
-        code = 0;
-        /* Copy des elements que si la file est non vide */
-        if (!EstVideFile(file)) {
-            int debut = (*file).queu;
-            int fin = (*file).sommet;
-
-            if ((*file).queu > (*file).sommet)
-                fin = (*file).capacite-1;
-                
-            int taille = fin - debut + 1;
-            
-            /* Copy du bloc memoire entre la queu et soit le sommet soit la fin de la file */
-            CpyBlocMem(nvBase, (*file).base+debut, (*file).base+fin);
-
-            /* Si la queu est apres le sommet
-            cela veut dire que l'on a pas tout copie */
-            if ((*file).queu > (*file).sommet) {
-                debut = 0;
-                fin = (*file).sommet;
-                /* Copy du bloc memoire entre la base et le sommet */
-                CpyBlocMem(nvBase+taille, (*file).base+debut, (*file).base+fin);
-                (*file).sommet = taille + fin - debut;
-            } else {
-                (*file).sommet = taille - 1;
+            if (redimensionnerFile(file, nouvCapacite)) {
+                printf("Redimensionnement impossible\n");
+                codeErreur = 2;
             }
-
-            (*file).queu = 0;
         }
 
-        (*file).capacite = nvCapacaite;
-        free((*file).base);
-        (*file).base = nvBase;
-    }
-    return code;
-}
-
-
-void CpyBlocMem (type *dest, type * deb, type * fin) {
-
-    /* Si le deb est apres la fin, on inverse le debut et la fin */
-    if (deb > fin) {
-        type * tmp = deb;
-        deb = fin;
-        fin = tmp;
-    }
-
-    while (deb <= fin) {
-        *dest = *deb;
-        dest ++;
-        deb ++;
-    }
-
-}
-
-
-void AfficherFile (file_t * file, void (*pfAfficher) (type)) {
-
-    int fin = (*file).sommet+1;
-    printf("File : capacite=%d\n", (*file).capacite);
-    printf("       ");
-
-    if (!EstVideFile(file)) {
-        if ((*file).sommet < (*file).queu)
-            fin = (*file).capacite;
-        
-        /* On affiche la premiere partie de la file a partir de la queu */
-        for (int i=(*file).queu; i<fin; i++)
-            (pfAfficher) ((*file).base[i]);
-
-        /* On affiche la deuxieme partie que si elle existe */
-        if ((*file).sommet < (*file).queu)
-            for (int i=0; i<(*file).sommet; i++)
-                (pfAfficher) ((*file).base[i]);
-        
     } else {
-        printf("vide");
+        printf("File vide\n");
     }
-    printf("\n");
+
+    return codeErreur;
 }
 
 
-void AfficherFileInt (int nombre) {
-    printf("%d ", nombre);
+char redimensionnerFile(file_t * file, int nouvCapacite) {
+    char codeErreur = 1; /*Code Erreur*/
+    int  i          = 0; /*Compteur*/
+
+    type * nouvBase = (type *)malloc(nouvCapacite * sizeof(type));
+    
+    /* Si l'allocation est sans erreur, on copie la file */
+    if (nouvBase != NULL) {
+        /* On copie l'ancienne file dans la nouvelle (redimensionnée) */
+        for (i=0; i<file->nbElements; i++) {
+            nouvBase[i] = file->base[(file->indexSuppression + i) % file->capacite];
+        }
+
+        /* On libère l'ancienne file et on actualise les données de la nouvelle */
+        free(file->base);
+        file->base = nouvBase;
+
+        /* On actualise les données de la file */
+        file->indexSuppression = 0;
+        file->indexInsertion = file->nbElements;
+        file->capacite = nouvCapacite;
+
+        codeErreur = 0;
+    }
+    return codeErreur;
 }
 
 
-void AfficherFileChar (char caractere) {
-    printf("%c ", caractere);
+void libererFile(file_t * file) {
+    free(file->base);
+    free(file);
+    file = NULL;
 }
 
 
-void AfficherFileChaineCarac (char * chaine) {
-    printf("%s ", chaine);
+void afficherFile(file_t * file, void (*pfAfficher) (type)) {
+    int i = 0; /*Compteur*/
+
+    if (!estVideFile(file)) {
+        for (i=0; i<file->nbElements; i++) {
+            pfAfficher(file->base[(file->indexSuppression + i) % file->capacite]);
+        }
+
+    } else {
+        printf("File vide\n");
+    }
 }
 
 
-char * AfficherFileDansChaine (file_t * file, void (*pfAfficher) (type, char *), int taille) {
+void afficherFileInt(int nombre) {
+    printf("%d\n", nombre);
+}
+
+
+void afficherFileChar(char caractere) {
+    printf("%c\n", caractere);
+}
+
+
+void afficherFileChaineChar(char * chaine) {
+    printf("%s\n", chaine);
+}
+
+
+
+char * ecrireFileDansChaine(file_t * file, void (*pfEcrire) (type, char *), int taille) {
     /* On alloc une taille previsionnel de l'affichage de la file */
-    char * chaine = malloc( taille*(*file).capacite*sizeof(int)); /* pointeur sur la debut de la chaine */
-    char * cour = chaine;   /* pointeur que la fin de la chaine */
+    char * chaine = malloc(taille * file->capacite * sizeof(int)); /*Pointeur sur la debut de la chaine*/
+    char * cour   = chaine;                                      /*Pointeur sur la fin de la chaine */
 
+    int i = 0; /*Compteur*/
 
-    if (!EstVideFile(file)) {
-        
-        int fin = (*file).sommet+1;
-        if ((*file).sommet < (*file).queu)
-            fin = (*file).capacite;
-
-        /* On affiche la premiere partie de la file a partir de la queu */
-        for (int i=(*file).queu; i<fin; i++) {
-            /* On ajoute l'affichage a la fin de la chaine */
-            (*pfAfficher) ((*file).base[i], cour);
-            /* On decale le pointeur a la fin de la chaine */
+    if (!estVideFile(file)) {
+        for (i=0; i<file->nbElements; i++) {
+            pfEcrire(file->base[(file->indexSuppression + i) % file->capacite], cour);
             cour += strlen(cour);
         }
 
-        /* On affiche la deuxieme partie que si elle existe */
-        if ((*file).sommet < (*file).queu)
-            for (int i=0; i<=(*file).sommet; i++) {
-                /* On ajoute l'affichage a la fin de la chaine */
-                (*pfAfficher) ((*file).base[i], cour);
-                /* On decale le pointeur a la fin de la chaine */
-                cour += strlen(cour);
-            }
-        
     } else {
-        strcpy(cour, "vide");
+        sprintf(cour, "vide");
     }
 
     return chaine;
 }
 
-void AfficherFileIntDansChaine(int nombre, char * chaine) {
+
+void ecrireFileIntDansChaine(int nombre, char * chaine) {
     sprintf(chaine, "%d ", nombre);
 }
 
 
-void AfficherFileCharDansChaine(char carac, char * chaine) {
-    sprintf(chaine, "%c ", carac);
+void ecrireFileCharDansChaine(char caractere, char * chaine) {
+    sprintf(chaine, "%c ", caractere);
 }
