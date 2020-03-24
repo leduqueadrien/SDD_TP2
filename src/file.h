@@ -55,7 +55,7 @@ char estPleineFile(file_t * file);
 
 
 /* ------------------------------------------------------------------ */
-/* emfiler      Emfile une valeur à la fin de la file,                */
+/* enfiler      Enfile une valeur à la fin de la file,                */
 /*                          et l'aggrandit si elle est trop petite    */
 /*                                                                    */
 /* En entrée :  file (file_t *) : file à remplir                      */
@@ -79,8 +79,7 @@ char defiler(file_t * file, type * valeur);
 
 
 /* --------------------------------------------------------------------- */
-/* redimensionnerFile   Redimensionne la file en copiant les             */
-/*                          et la réduit si elle peu utilisée            */
+/* redimensionnerFile   Redimensionne la file en copiant les valeurs     */
 /*                                                                       */
 /* En entrée :  file (file_t *)    : file à redimmensionner              */
 /*              nouvCapacite (int) : taille de la nouvelle file          */
