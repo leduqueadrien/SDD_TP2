@@ -9,13 +9,6 @@
 int testUnitairePile() {
     int code = 1;
 
-    if (testAfficherPile() == 1) {
-        printf("\033[32mFonction afficher pile fonctionne\033[00m\n\n");
-    } else {
-        code = 0;
-        printf("\033[31mFonction afficher pile ne fonctionne pas\033[00m\n\n");
-    }
-
     if (testInitPile() == 1) {
         printf("\033[32mFonction init pile fonctionne\033[00m\n\n");
     } else {

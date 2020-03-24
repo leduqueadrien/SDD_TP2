@@ -55,7 +55,7 @@ int main(int argc, char const *argv[]) {
 
 	} else {
 
-		int n = 26;
+		int n = 10;
 		pile_t * pile = initPile(n);
 
 		for (int i=0; i<n; i++)
