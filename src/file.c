@@ -55,7 +55,7 @@ char enfiler(file_t * file, type valeur) {
 
     /* Sinon, il faut redimensionner la file */
     } else {
-        int nouvCapacite = 1.5 * file->capacite;
+        int nouvCapacite = 1.5 * file->capacite + 1;
 
         /* Si la redimension est sans erreur, on enfile la valeur */
         if (redimensionnerFile(file, nouvCapacite)) {

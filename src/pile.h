@@ -29,7 +29,7 @@ typedef struct Pile {
 /*                                                                */
 /* En sortie :  pile : pointeur sur la pile (pile_t *)            */
 /* -------------------------------------------------------------- */
-pile_t * InitPile(int);
+pile_t * initPile(int);
 
 /* --------------------------------------------------------------------- */
 /* EstVidePile  Indique si la pile passée en paramètre est vide ou non   */
@@ -38,7 +38,7 @@ pile_t * InitPile(int);
 /*                                                                       */
 /* En sortie :  estVide (int) booléen : 1 si la pile est vide, 0 sinon  */
 /* --------------------------------------------------------------------- */
-int EstVidePile(pile_t *);
+int estVidePile(pile_t *);
 
 /* ------------------------------------------------------------------------- */
 /* EstPleinePile  Indique si la pile passée en paramètre est pleine ou non   */
@@ -47,7 +47,7 @@ int EstVidePile(pile_t *);
 /*                                                                           */
 /* En sortie :  (int) booléen : 1 si la pile est pleine, 0 sinon             */
 /* ------------------------------------------------------------------------- */
-int EstPleinePile(pile_t *);
+int estPleinePile(pile_t *);
 
 /* ------------------------------------------------------------------ */
 /* Empiler      Empile une valeur au sommet de la pile,               */
@@ -58,7 +58,7 @@ int EstPleinePile(pile_t *);
 /*                                                                    */
 /* En sortie :  codeErreur (int) booléen : 1 si erreur, 0 sinon       */
 /* ------------------------------------------------------------------ */
-int Empiler(pile_t *, type);
+int empiler(pile_t *, type);
 
 /* -------------------------------------------------------------- */
 /* Depiler      Dépile la valeur au sommet de la pile,            */
@@ -69,7 +69,7 @@ int Empiler(pile_t *, type);
 /*                                                                */
 /* En sortie :  codeErreur (int) booléen : 2 si erreur, 0 sinon   */
 /* -------------------------------------------------------------- */
-int Depiler(pile_t *, type *);
+int depiler(pile_t *, type *);
 
 /* --------------------------------------------------------------------- */
 /* RedimensionerPile    Redimensionne la base de la pile                 */
@@ -80,7 +80,7 @@ int Depiler(pile_t *, type *);
 /* En sortie : codeErreur (int) booléen : 1 si le redimensionnement      */
 /*                                  n'a pas pu être fait, 0 sinon        */
 /* --------------------------------------------------------------------- */
-int RedimensionerPile(pile_t *, int);
+int redimensionerPile(pile_t *, int);
 
 /* --------------------------------------------------------- */
 /* LibererPile  Libère la mémoire utilisée par la pile       */
@@ -89,7 +89,7 @@ int RedimensionerPile(pile_t *, int);
 /*                                                           */
 /* En sortie :  void                                         */
 /* --------------------------------------------------------- */
-void LibererPile(pile_t *);
+void libererPile(pile_t *);
 
 /* ----------------------------------------------------------------------------------------- */
 /* AfficherPile     Affiche le pile                                                          */
@@ -99,7 +99,7 @@ void LibererPile(pile_t *);
 /*                                                                                           */
 /* En sortie : void                                                                          */
 /* ----------------------------------------------------------------------------------------- */
-void AfficherPile(pile_t *, void (*) (type));
+void afficherPile(pile_t *, void (*) (type));
 
 
 /* --------------------------------------------------- */
@@ -109,7 +109,7 @@ void AfficherPile(pile_t *, void (*) (type));
 /*                                                     */
 /* En sortie : void                                    */
 /* --------------------------------------------------- */
-void AfficherPileInt(int);
+void afficherPileInt(int);
 
 /* ---------------------------------------------------- */
 /* AfficherPileChar      Affiche un élément de type char */
@@ -118,7 +118,7 @@ void AfficherPileInt(int);
 /*                                                      */
 /* En sortie : void                                     */
 /* ---------------------------------------------------- */
-void AfficherPileChar(char);
+void afficherPileChar(char);
 
 /* --------------------------------------------------------------------------- */
 /* AfficherPileChaineCarac      Affiche un élément de type chaine de caractère */
@@ -127,7 +127,7 @@ void AfficherPileChar(char);
 /*                                                                             */
 /* En sortie : void                                                            */
 /* --------------------------------------------------------------------------- */
-void AfficherPileChaineCarac(char *);
+void afficherPileChaineCarac(char *);
 
 
 #endif

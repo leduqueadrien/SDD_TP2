@@ -8,7 +8,7 @@
 #include "pile.h"
 
 
-pile_t * InitPile(int capacite) {
+pile_t * initPile(int capacite) {
 
     /* Allocation de la pile */
     pile_t * pile = (pile_t*) malloc(sizeof(pile_t));
@@ -32,7 +32,7 @@ pile_t * InitPile(int capacite) {
 }
 
 
-void LibererPile(pile_t * pile) {
+void libererPile(pile_t * pile) {
     /* On libère la base */
     free((*pile).base);
     /* On libère la pile */
@@ -41,17 +41,17 @@ void LibererPile(pile_t * pile) {
 }
 
 
-int EstVidePile(pile_t * pile) {
+int estVidePile(pile_t * pile) {
     return (*pile).sommet == -1;
 }
 
 
-int EstPleinePile(pile_t * pile) {
+int estPleinePile(pile_t * pile) {
     return (*pile).capacite == (*pile).sommet + 1;
 }
 
 
-int Empiler(pile_t * pile, type v) {
+int empiler(pile_t * pile, type v) {
     int codeErreur = 1;
 
     /* Si la pile est pleine, on redimensionne, sinon, on empile */
@@ -61,7 +61,7 @@ int Empiler(pile_t * pile, type v) {
         int nvCapacite = 1.5*(*pile).capacite + 1;
 
         /* Si le redimensionnement a fonctionne, on empile la valeur */
-        if (RedimensionerPile(pile, nvCapacite))
+        if (!RedimensionerPile(pile, nvCapacite))
             codeErreur = Empiler(pile, v);
 
     } else {
@@ -74,7 +74,7 @@ int Empiler(pile_t * pile, type v) {
 }
 
 
-int Depiler(pile_t * pile, type * v) {
+int depiler(pile_t * pile, type * v) {
     int codeErreur = 1;
     
     /* Si la pile est non vide, on depile */
@@ -94,7 +94,7 @@ int Depiler(pile_t * pile, type * v) {
 }
 
 
-int RedimensionerPile(pile_t * pile, int nvCapacite) {
+int redimensionerPile(pile_t * pile, int nvCapacite) {
     int codeErreur = 1;
 
     /* On realloc la base */
@@ -109,7 +109,7 @@ int RedimensionerPile(pile_t * pile, int nvCapacite) {
 }
 
 
-void AfficherPile(pile_t * pile, void (*pfAfficher) (type)) {
+void afficherPile(pile_t * pile, void (*pfAfficher) (type)) {
 
     printf("Pile : capacite=%d\n", (*pile).capacite);
     printf("       ");
@@ -126,16 +126,16 @@ void AfficherPile(pile_t * pile, void (*pfAfficher) (type)) {
 }
 
 
-void AfficherPileInt(int nombre) {
+void afficherPileInt(int nombre) {
     printf("%d ", nombre);
 }
 
 
-void AfficherPileChar(char caractere) {
+void afficherPileChar(char caractere) {
     printf("%c ", caractere);
 }
 
 
-void AfficherPileChaineCarac(char * chaine) {
+void afficherPileChaineCarac(char * chaine) {
     printf("%s ", chaine);
 }

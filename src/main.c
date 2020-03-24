@@ -40,7 +40,7 @@ void InverserPile(pile_t * pile) {
 
 int main(int argc, char const *argv[]) {
 
-	if (argc >= 2 && *argv[1] == '1') {
+	if (1 /*argc >= 2 && *argv[1] == '1'*/) {
 
 		if (TestUnitairePile() == 1)
 			printf("\033[33m     Fonctions pile \033[32mfonctionne\033[00m\n\n");

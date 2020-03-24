@@ -235,10 +235,11 @@ int TestDefiler() {
     libererFile(file);
 
     file = initFile(10);
+    enfiler(file, 1);
     defiler(file, &a);
     chaine = ecrireFileDansChaine(file, ecrireFileCharDansChaine, 4);
     printf("Redimensionnement : ");
-    if (!strcmp("vide", chaine) && (*file).capacite == 5) {
+    if (!strcmp("vide", chaine) && (*file).capacite == 6) {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
@@ -250,7 +251,6 @@ int TestDefiler() {
 
     return code;
 }
-
 
 
 char * ecrireFileDansChaine(file_t * file, void (*pfEcrire) (type, char *), int taille) {
