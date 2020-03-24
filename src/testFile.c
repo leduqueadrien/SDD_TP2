@@ -6,31 +6,31 @@
 #include "file.h"
 
 
-int TestUnitaireFile() {
+int testUnitaireFile() {
     int code = 1;
 
-    if (TestInitFile()) {
+    if (testInitFile()) {
         printf("\033[32mInitialisation file fonctionne\033[00m\n\n");
     } else {
         code = 0;
         printf("\033[31mInitialisation file ne fonctionne pas\033[00m\n\n");
     }
 
-    if (TestFileEstVide()) {
+    if (testFileEstVide()) {
         printf("\033[32mFonction file est vide fonctionne\033[00m\n\n");
     } else {
         code = 0;
         printf("\033[31mFonction file est vide ne fonctionne pas\033[00m\n\n");
     }
 
-    if (TestEnfiler()) {
+    if (testEnfiler()) {
         printf("\033[32mFonction enfiler fonctionne\033[00m\n\n");
     } else {
         code = 0;
         printf("\033[31mFonction enfiler ne fonctionne pas\033[00m\n\n");
     }
 
-    if (TestDefiler()) {
+    if (testDefiler()) {
         printf("\033[32mFonction defiler fonctionne\033[00m\n\n");
     } else {
         code = 0;
@@ -41,7 +41,7 @@ int TestUnitaireFile() {
 }
 
 
-int TestInitFile() {
+int testInitFile() {
     int code = 1;
     file_t * file = initFile(3);
 
@@ -75,7 +75,7 @@ int TestInitFile() {
 }
 
 
-int TestFileEstVide() {
+int testFileEstVide() {
     int code = 1;
     file_t * file = initFile(3);
     type v;
@@ -112,7 +112,7 @@ int TestFileEstVide() {
 }
 
 
-int TestEnfiler() {
+int testEnfiler() {
     int code = 1;
     file_t * file = initFile(3);
     char * chaine;
@@ -189,7 +189,7 @@ int TestEnfiler() {
 }
 
 
-int TestDefiler() {
+int testDefiler() {
     int code = 1;
     file_t * file = initFile(3);
     char * chaine;

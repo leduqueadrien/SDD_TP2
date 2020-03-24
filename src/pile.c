@@ -55,14 +55,14 @@ int empiler(pile_t * pile, type v) {
     int codeErreur = 1;
 
     /* Si la pile est pleine, on redimensionne, sinon, on empile */
-    if (EstPleinePile(pile)) {
+    if (estPleinePile(pile)) {
 
         /* + 1 pour le cas ou la capacite vaut 1 */
         int nvCapacite = 1.5*(*pile).capacite + 1;
 
         /* Si le redimensionnement a fonctionne, on empile la valeur */
-        if (!RedimensionerPile(pile, nvCapacite))
-            codeErreur = Empiler(pile, v);
+        if (!redimensionerPile(pile, nvCapacite))
+            codeErreur = empiler(pile, v);
 
     } else {
         codeErreur = 0;
@@ -78,7 +78,7 @@ int depiler(pile_t * pile, type * v) {
     int codeErreur = 1;
     
     /* Si la pile est non vide, on depile */
-    if (!EstVidePile(pile)) {
+    if (!estVidePile(pile)) {
         codeErreur = 0;
         *v = (*pile).base [(*pile).sommet];
         (*pile).sommet --;
@@ -86,7 +86,7 @@ int depiler(pile_t * pile, type * v) {
         /* Si la pile est tres peu utilise, on diminue la taille */
         if ((*pile).sommet < (int)0.25*(*pile).capacite) {
             int nvCapacite = 0.5*(*pile).capacite;
-            RedimensionerPile(pile, nvCapacite);
+            redimensionerPile(pile, nvCapacite);
         }
     }
 
@@ -114,7 +114,7 @@ void afficherPile(pile_t * pile, void (*pfAfficher) (type)) {
     printf("Pile : capacite=%d\n", (*pile).capacite);
     printf("       ");
     
-    if(!EstVidePile(pile)) {
+    if(!estVidePile(pile)) {
         /* On affiche chaque element un par un en appellant la fonction d'aafichage */
         for (int i=0; i <=(*pile).sommet; i++)
             (*pfAfficher) ( (*pile).base[i] );

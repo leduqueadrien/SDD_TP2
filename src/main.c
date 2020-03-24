@@ -10,7 +10,7 @@
 #include "file.h"
 
 
-void InverserPile(pile_t * pile) {
+void inverserPile(pile_t * pile) {
 	int      i        = 0;                 /*Compteur*/
 	type     valeur   = 0;                 /*Valeur d'entrée/sortie de la pile ou file*/
 	int      nbElems  = pile->sommet + 1;  /*Nombre d'elements dans la pile, à inverser*/
@@ -20,14 +20,14 @@ void InverserPile(pile_t * pile) {
 	if (file != NULL) {
 		/* On vide la pile, on rempli la file */
 		for (i=0; i<nbElems; i++) {
-			Depiler(pile, &valeur);
+			depiler(pile, &valeur);
 			enfiler(file, valeur);
 		}
 
 		/* On vide la file, on rempli la pile */
 		for (i=0; i<nbElems; i++) {
 			defiler(file, &valeur);
-			Empiler(pile, valeur);
+			empiler(pile, valeur);
 		}
 
 		/* La pile est alors inversée */
@@ -40,15 +40,15 @@ void InverserPile(pile_t * pile) {
 
 int main(int argc, char const *argv[]) {
 
-	if (1 /*argc >= 2 && *argv[1] == '1'*/) {
+	if (argc >= 2 && *argv[1] == '1') {
 
-		if (TestUnitairePile() == 1)
+		if (testUnitairePile() == 1)
 			printf("\033[33m     Fonctions pile \033[32mfonctionne\033[00m\n\n");
 		else
 			printf("\033[33m     Fonctions pile \033[31mne fonctionne pas\033[00m\n\n");
 
 
-		if (TestUnitaireFile())
+		if (testUnitaireFile())
 			printf("\033[33m     Fonctions file \033[32mfonctionne\033[00m\n\n");
 		else
 			printf("\033[33m     Fonctions file \033[31mne fonctoinne pas\033[00m\n\n");
@@ -56,16 +56,16 @@ int main(int argc, char const *argv[]) {
 	} else {
 
 		int n = 26;
-		pile_t * pile = InitPile(n);
+		pile_t * pile = initPile(n);
 
 		for (int i=0; i<n; i++)
-			Empiler(pile, 97+i);
+			empiler(pile, 97+i);
 
-		AfficherPile(pile, AfficherPileChar);
-		InverserPile(pile);
-		AfficherPile(pile, AfficherPileChar);
+		afficherPile(pile, afficherPileChar);
+		inverserPile(pile);
+		afficherPile(pile, afficherPileChar);
 
-		LibererPile(pile);
+		libererPile(pile);
 	}
 
 	return 0;

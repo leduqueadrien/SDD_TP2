@@ -6,45 +6,45 @@
 #include "pile.h"
 
 
-int TestUnitairePile() {
+int testUnitairePile() {
     int code = 1;
 
-    if (TestAfficherPile() == 1) {
+    if (testAfficherPile() == 1) {
         printf("\033[32mFonction afficher pile fonctionne\033[00m\n\n");
     } else {
         code = 0;
         printf("\033[31mFonction afficher pile ne fonctionne pas\033[00m\n\n");
     }
 
-    if (TestInitPile() == 1) {
+    if (testInitPile() == 1) {
         printf("\033[32mFonction init pile fonctionne\033[00m\n\n");
     } else {
         code = 0;
         printf("\033[31mFonction init pile ne fonctionne pas\033[00m\n\n");
     }
 
-    if (TestEstVidePile() == 1) {
+    if (testEstVidePile() == 1) {
         printf("\033[32mFonction pile est vide fonctionne\033[00m\n\n");
     } else {
         code = 0;
         printf("\033[31mFonction pile est non vide ne fonctionne pas\033[00m\n\n");
     }
 
-    if (TestEstPleinePile() == 1) {
+    if (testEstPleinePile() == 1) {
         printf("\033[32mFonction pile est pleine fonctionne\033[00m\n\n");
     } else {
         code = 0;
         printf("\033[31mFonction pile est pleine ne fonctionne pas\033[00m\n\n");
     }
 
-    if (TestEmpiler() == 1) {
+    if (testEmpiler() == 1) {
         printf("\033[32mFonction empiler fonctionne\033[00m\n\n");
     } else {
         code = 0;
         printf("\033[31mFonction empiler ne fonctionne pas\033[00m\n\n");
     }
 
-    if (TestDepiler() == 1) {
+    if (testDepiler() == 1) {
         printf("\033[32mFonction depiler fonctionne\033[00m\n\n");
     } else {
         code = 0;
@@ -55,12 +55,12 @@ int TestUnitairePile() {
 }
 
 
-int TestAfficherPile() {
+int testAfficherPile() {
     int code = 1;
-    pile_t * pile = InitPile(3);
+    pile_t * pile = initPile(3);
     char * chaine;
 
-    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
+    chaine = ecrirePileDansChaine(pile, &ecrirePileCharDansChaine, 4);
     printf("Affichage pile vide : ");
     if (!strcmp("vide", chaine)) {
         printf("\033[32mbon\033[00m\n");
@@ -70,8 +70,8 @@ int TestAfficherPile() {
     }
     free(chaine);
     
-    Empiler(pile, '1');
-    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
+    empiler(pile, '1');
+    chaine = ecrirePileDansChaine(pile, &ecrirePileCharDansChaine, 4);
     printf("Affichage pile 1 element : ");
     if (!strcmp("1 ", chaine)) {
         printf("\033[32mbon\033[00m\n");
@@ -81,9 +81,9 @@ int TestAfficherPile() {
     }
     free(chaine);
 
-    Empiler(pile, '2');
-    Empiler(pile, '3');
-    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
+    empiler(pile, '2');
+    empiler(pile, '3');
+    chaine = ecrirePileDansChaine(pile, &ecrirePileCharDansChaine, 4);
     printf("Affichage pile pleine : ");
     if (!strcmp("1 2 3 ", chaine)) {
         printf("\033[32mbon\033[00m\n");
@@ -93,15 +93,15 @@ int TestAfficherPile() {
     }
     free(chaine);
 
-    LibererPile(pile);
+    libererPile(pile);
 
     return code;
 }
 
 
-int TestInitPile() {
+int testInitPile() {
     int code = 1;
-    pile_t * pile = InitPile(3);
+    pile_t * pile = initPile(3);
 
     printf("Initialiser capacite : ");
     if ((*pile).capacite == 3) {
@@ -119,112 +119,112 @@ int TestInitPile() {
         printf("\033[31mfaux\033[00m\n");
     }
 
-    LibererPile(pile);
+    libererPile(pile);
 
     return code;
 }
 
 
-int TestEstVidePile() {
+int testEstVidePile() {
     int code = 1;
-    pile_t * pile = InitPile(3);
+    pile_t * pile = initPile(3);
     char a;
 
     printf("Pile est vide : ");
-    if (EstVidePile(pile) == 1) {
+    if (estVidePile(pile) == 1) {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
         printf("\033[31mfaux\033[00m\n");
     }
     
-    Empiler(pile, '1');
+    empiler(pile, '1');
     printf("Pile est non vide : ");
-    if (EstVidePile(pile) == 0) {
+    if (estVidePile(pile) == 0) {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
         printf("\033[31mfaux\033[00m\n");
     }
 
-    Depiler(pile,&a);
+    depiler(pile,&a);
     printf("Pile est de nouveau vide : ");
-    if (EstVidePile(pile)) {
+    if (estVidePile(pile)) {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
         printf("\033[31mfaux\033[00m\n");
     }
 
-    LibererPile(pile);
+    libererPile(pile);
 
     return code;
 }
 
 
-int TestEstPleinePile() {
+int testEstPleinePile() {
     int code = 1;
-    pile_t * pile = InitPile(2);
+    pile_t * pile = initPile(2);
     char a;
 
     printf("Pile est vide (non pleine) : ");
-    if (EstPleinePile(pile) == 0) {
+    if (estPleinePile(pile) == 0) {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
         printf("\033[31mfaux\033[00m");
     }
 
-    Empiler(pile, '1');
+    empiler(pile, '1');
     printf("Pile est partiellement pleine : ");
-    if (EstPleinePile(pile) == 0) {
+    if (estPleinePile(pile) == 0) {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
         printf("\033[31mfaux\033[00m\n");
     }
 
-    Empiler(pile, '2');
+    empiler(pile, '2');
     printf("Pile pleine : ");
-    if (EstPleinePile(pile) == 1) {
+    if (estPleinePile(pile) == 1) {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
         printf("\033[31mfaux\033[00m\n");
     }
 
-    Depiler(pile, &a);
+    depiler(pile, &a);
     printf("Pile n'est plus pleine : ");
-    if (EstPleinePile(pile) == 0) {
+    if (estPleinePile(pile) == 0) {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
         printf("\033[31mfaux\033[00m\n");
     }
 
-    Empiler(pile, '2');
+    empiler(pile, '2');
     printf("Pile de nouveau pleine : ");
-    if (EstPleinePile(pile) == 1) {
+    if (estPleinePile(pile) == 1) {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
         printf("\033[31mfaux\033[00m\n");
     }
 
-    LibererPile(pile);
+    libererPile(pile);
 
     return code;
 }
 
 
-int TestEmpiler() {
+int testEmpiler() {
     int code = 1;
-    pile_t * pile = InitPile(3);
+    pile_t * pile = initPile(3);
     char * chaine;
 
-    Empiler(pile, '1');
-    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
-    printf("Empiler un element : ");
+    empiler(pile, '1');
+    chaine = ecrirePileDansChaine(pile, &ecrirePileCharDansChaine, 4);
+    printf("empiler un element : ");
     if (!strcmp("1 ", chaine)) {
         printf("\033[32mbon\033[00m\n");
     } else {
@@ -233,9 +233,9 @@ int TestEmpiler() {
     }
     free(chaine);
 
-    Empiler(pile, '2');
-    Empiler(pile, '4');
-    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
+    empiler(pile, '2');
+    empiler(pile, '4');
+    chaine = ecrirePileDansChaine(pile, &ecrirePileCharDansChaine, 4);
     printf("Pile pleine : ");
     if (!strcmp("1 2 4 ", chaine)) {
         printf("\033[32mbon\033[00m\n");
@@ -245,8 +245,8 @@ int TestEmpiler() {
     }
     free(chaine);
 
-    Empiler(pile, '1');
-    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
+    empiler(pile, '1');
+    chaine = ecrirePileDansChaine(pile, &ecrirePileCharDansChaine, 4);
     printf("Redimensionnement : ");
     if (!strcmp("1 2 4 1 ", chaine) && (*pile).capacite == 5) {
         printf("\033[32mbon\033[00m\n");
@@ -256,20 +256,20 @@ int TestEmpiler() {
     }
     free(chaine);
 
-    LibererPile(pile);
+    libererPile(pile);
     
     return code;
 }
 
 
-int TestDepiler() {
+int testDepiler() {
     int code  = 1;
-    pile_t * pile = InitPile(3);
+    pile_t * pile = initPile(3);
     char * chaine;
     char a = '9';
 
-    Depiler(pile, &a);
-    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
+    depiler(pile, &a);
+    chaine = ecrirePileDansChaine(pile, &ecrirePileCharDansChaine, 4);
     printf("Depilage a vide : ");
     if (!strcmp("vide", chaine) && a == '9') {
         printf("\033[32mbon\033[00m\n");
@@ -279,10 +279,10 @@ int TestDepiler() {
     }
     free(chaine);
 
-    Empiler(pile, '1');
-    Empiler(pile, '2');
-    Depiler(pile, &a);
-    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
+    empiler(pile, '1');
+    empiler(pile, '2');
+    depiler(pile, &a);
+    chaine = ecrirePileDansChaine(pile, &ecrirePileCharDansChaine, 4);
     printf("Depilage : ");
     if (!strcmp("1 ", chaine) && a == '2') {
         printf("\033[32mbon\033[00m\n");
@@ -292,10 +292,10 @@ int TestDepiler() {
     }
     free(chaine);
 
-    Empiler(pile, '4');
-    Empiler(pile, '5');
-    Depiler(pile, &a);
-    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
+    empiler(pile, '4');
+    empiler(pile, '5');
+    depiler(pile, &a);
+    chaine = ecrirePileDansChaine(pile, &ecrirePileCharDansChaine, 4);
     printf("Depilage pile pleine : ");
     if (!strcmp("1 4 ", chaine) && a == '5') {
         printf("\033[32mbon\033[00m\n");
@@ -305,13 +305,13 @@ int TestDepiler() {
     }
     free(chaine);
 
-    LibererPile(pile);
+    libererPile(pile);
 
-    pile = InitPile(10);
+    pile = initPile(10);
 
-    Empiler(pile, '3');
-    Depiler(pile, &a);
-    chaine = EcrirePileDansChaine(pile, &EcrirePileCharDansChaine, 4);
+    empiler(pile, '3');
+    depiler(pile, &a);
+    chaine = ecrirePileDansChaine(pile, &ecrirePileCharDansChaine, 4);
     printf("Redimenionnement : ");
     if (!strcmp("vide", chaine) && (*pile).capacite == 5 && a == '3') {
         printf("\033[32mbon\033[00m\n");
@@ -321,19 +321,19 @@ int TestDepiler() {
     }
     free(chaine);
 
-    LibererPile(pile);
+    libererPile(pile);
 
     return code;
 }
 
 
 
-char * EcrirePileDansChaine(pile_t * pile, void (*pfAfficher) (type, char *), int taille) {
+char * ecrirePileDansChaine(pile_t * pile, void (*pfAfficher) (type, char *), int taille) {
     /* On alloc une taille previsionnel de l'affichage de la pile */
     char * chaine = malloc( taille*(*pile).capacite*sizeof(char) ); /* pointeur sur la debut de la chaine */
     char * cour = chaine;   /* pointeur que la fin de la chaine */
 
-    if (!EstVidePile(pile)) {
+    if (!estVidePile(pile)) {
 
         int n = (*pile).sommet + 1;
         for (int i=0; i<n; i++) {
@@ -350,11 +350,11 @@ char * EcrirePileDansChaine(pile_t * pile, void (*pfAfficher) (type, char *), in
 }
 
 
-void EcrirePileIntDansChaine(int nombre, char * chaine) {
+void ecrirePileIntDansChaine(int nombre, char * chaine) {
     sprintf(chaine, "%d ", nombre);
 }
 
 
-void EcrirePileCharDansChaine(char carac, char * chaine) {
+void ecrirePileCharDansChaine(char carac, char * chaine) {
     sprintf(chaine, "%c ", carac);
 }

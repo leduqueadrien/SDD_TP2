@@ -4,12 +4,12 @@
 #include "file.h"
 
 
-int TestUnitaireFile();
-int TestInitFile();
-int TestFileEstVide();
-int TestEnfiler();
-int TestDefiler();
-int TestAfficherFile();
+int testUnitaireFile();
+int testInitFile();
+int testFileEstVide();
+int testEnfiler();
+int testDefiler();
+int testAfficherFile();
 
 
 /* ----------------------------------------------------------------------------------------- */

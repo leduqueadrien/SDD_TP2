@@ -3,13 +3,13 @@
 #define TUPILE
 #include "pile.h"
 
-int TestUnitairePile();
-int TestAfficherPile();
-int TestInitPile();
-int TestEstVidePile();
-int TestEstPleinePile();
-int TestEmpiler();
-int TestDepiler();
+int testUnitairePile();
+int testAfficherPile();
+int testInitPile();
+int testEstVidePile();
+int testEstPleinePile();
+int testEmpiler();
+int testDepiler();
 
 
 /* ----------------------------------------------------------------------------------------- */
@@ -22,7 +22,7 @@ int TestDepiler();
 /*                                                                                           */
 /* En sortie : chaine (char *) : chaine de caractère contenant l'affichage de la pile        */
 /* ----------------------------------------------------------------------------------------- */
-char * EcrirePileDansChaine(pile_t *, void (*) (type, char *), int);
+char * ecrirePileDansChaine(pile_t *, void (*) (type, char *), int);
 
 
 /* ---------------------------------------------------------------------- */
@@ -34,7 +34,7 @@ char * EcrirePileDansChaine(pile_t *, void (*) (type, char *), int);
 /*                                                                        */
 /* En sortie : void                                                       */
 /* ---------------------------------------------------------------------- */
-void EcrirePileIntDansChaine(int, char *);
+void ecrirePileIntDansChaine(int, char *);
 
 
 /* -------------------------------------------------------------------------- */
@@ -46,7 +46,7 @@ void EcrirePileIntDansChaine(int, char *);
 /*                                                                            */
 /* En sortie : void                                                           */
 /* -------------------------------------------------------------------------- */
-void EcrirePileCharDansChaine(char, char *);
+void ecrirePileCharDansChaine(char, char *);
 
 
 #endif
