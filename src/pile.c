@@ -85,7 +85,7 @@ int depiler(pile_t * pile, type * v) {
 
         /* Si la pile est tres peu utilise, on diminue la taille */
         if ((*pile).sommet < (int)0.25*(*pile).capacite) {
-            int nvCapacite = 0.5*(*pile).capacite;
+            int nvCapacite = 0.5*(*pile).capacite + 1;
             redimensionerPile(pile, nvCapacite);
         }
     }
