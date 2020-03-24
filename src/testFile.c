@@ -116,7 +116,7 @@ int testEnfiler() {
     int code = 1;
     file_t * file = initFile(3);
     char * chaine;
-    type a;
+    type v;
 
     enfiler(file, '1');
     chaine = ecrireFileDansChaine(file, ecrireFileCharDansChaine, 4);
@@ -158,8 +158,8 @@ int testEnfiler() {
     enfiler(file, '1');
     enfiler(file, '2');
     enfiler(file, '3');
-    defiler(file, &a);
-    defiler(file, &a);
+    defiler(file, &v);
+    defiler(file, &v);
     enfiler(file, '4');
     chaine = ecrireFileDansChaine(file, ecrireFileCharDansChaine, 4);
     printf("Enfiler apres avoir defiler : ");
@@ -193,12 +193,12 @@ int testDefiler() {
     int code = 1;
     file_t * file = initFile(3);
     char * chaine;
-    type a = 2;
+    type v = 2;
     
-    defiler(file, &a);
+    defiler(file, &v);
     chaine = ecrireFileDansChaine(file, ecrireFileCharDansChaine, 4);
     printf("Defiler a vide : ");
-    if (!strcmp("vide", chaine) && a == 2 && (*file).indexSuppression == 0 && (*file).indexInsertion == 0) {
+    if (!strcmp("vide", chaine) && v == 2 && (*file).indexSuppression == 0 && (*file).indexInsertion == 0) {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
@@ -207,10 +207,10 @@ int testDefiler() {
     free(chaine);
 
     enfiler(file, '3');
-    defiler(file, &a);
+    defiler(file, &v);
     chaine = ecrireFileDansChaine(file, ecrireFileCharDansChaine, 4);
     printf("Defilage : ");
-    if (!strcmp("vide", chaine) && a == '3') {
+    if (!strcmp("vide", chaine) && v == '3') {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
@@ -221,10 +221,10 @@ int testDefiler() {
     enfiler(file, '1');
     enfiler(file, '2');
     enfiler(file, '3');
-    defiler(file, &a);
+    defiler(file, &v);
     chaine = ecrireFileDansChaine(file, ecrireFileCharDansChaine, 4);
     printf("Defilage pile pleine : ");
-    if (!strcmp("2 3 ", chaine) && a == '1') { 
+    if (!strcmp("2 3 ", chaine) && v == '1') { 
         printf("\033[32mbon\033[00m\n") ;
     } else {
         code = 0;
@@ -236,7 +236,7 @@ int testDefiler() {
 
     file = initFile(10);
     enfiler(file, 1);
-    defiler(file, &a);
+    defiler(file, &v);
     chaine = ecrireFileDansChaine(file, ecrireFileCharDansChaine, 4);
     printf("Redimensionnement : ");
     if (!strcmp("vide", chaine) && (*file).capacite == 6) {

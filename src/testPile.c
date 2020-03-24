@@ -128,7 +128,7 @@ int testInitPile() {
 int testEstVidePile() {
     int code = 1;
     pile_t * pile = initPile(3);
-    char a;
+    char v;
 
     printf("Pile est vide : ");
     if (estVidePile(pile) == 1) {
@@ -147,7 +147,7 @@ int testEstVidePile() {
         printf("\033[31mfaux\033[00m\n");
     }
 
-    depiler(pile,&a);
+    depiler(pile,&v);
     printf("Pile est de nouveau vide : ");
     if (estVidePile(pile)) {
         printf("\033[32mbon\033[00m\n");
@@ -165,7 +165,7 @@ int testEstVidePile() {
 int testEstPleinePile() {
     int code = 1;
     pile_t * pile = initPile(2);
-    char a;
+    char v;
 
     printf("Pile est vide (non pleine) : ");
     if (estPleinePile(pile) == 0) {
@@ -193,7 +193,7 @@ int testEstPleinePile() {
         printf("\033[31mfaux\033[00m\n");
     }
 
-    depiler(pile, &a);
+    depiler(pile, &v);
     printf("Pile n'est plus pleine : ");
     if (estPleinePile(pile) == 0) {
         printf("\033[32mbon\033[00m\n");
@@ -266,12 +266,12 @@ int testDepiler() {
     int code  = 1;
     pile_t * pile = initPile(3);
     char * chaine;
-    char a = '9';
+    char v = '9';
 
-    depiler(pile, &a);
+    depiler(pile, &v);
     chaine = ecrirePileDansChaine(pile, &ecrirePileCharDansChaine, 4);
     printf("Depilage a vide : ");
-    if (!strcmp("vide", chaine) && a == '9') {
+    if (!strcmp("vide", chaine) && v == '9') {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
@@ -281,10 +281,10 @@ int testDepiler() {
 
     empiler(pile, '1');
     empiler(pile, '2');
-    depiler(pile, &a);
+    depiler(pile, &v);
     chaine = ecrirePileDansChaine(pile, &ecrirePileCharDansChaine, 4);
     printf("Depilage : ");
-    if (!strcmp("1 ", chaine) && a == '2') {
+    if (!strcmp("1 ", chaine) && v == '2') {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
@@ -294,10 +294,10 @@ int testDepiler() {
 
     empiler(pile, '4');
     empiler(pile, '5');
-    depiler(pile, &a);
+    depiler(pile, &v);
     chaine = ecrirePileDansChaine(pile, &ecrirePileCharDansChaine, 4);
     printf("Depilage pile pleine : ");
-    if (!strcmp("1 4 ", chaine) && a == '5') {
+    if (!strcmp("1 4 ", chaine) && v == '5') {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
@@ -310,10 +310,10 @@ int testDepiler() {
     pile = initPile(10);
 
     empiler(pile, '3');
-    depiler(pile, &a);
+    depiler(pile, &v);
     chaine = ecrirePileDansChaine(pile, &ecrirePileCharDansChaine, 4);
     printf("Redimenionnement : ");
-    if (!strcmp("vide", chaine) && (*pile).capacite == 5 && a == '3') {
+    if (!strcmp("vide", chaine) && (*pile).capacite == 5 && v == '3') {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
