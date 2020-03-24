@@ -5,7 +5,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "file.h"
 
 
@@ -162,36 +161,4 @@ void afficherFileChar(char caractere) {
 
 void afficherFileChaineChar(char * chaine) {
     printf("%s\n", chaine);
-}
-
-
-
-char * ecrireFileDansChaine(file_t * file, void (*pfEcrire) (type, char *), int taille) {
-    /* On alloc une taille previsionnel de l'affichage de la file */
-    char * chaine = malloc(taille * file->capacite * sizeof(int)); /*Pointeur sur la debut de la chaine*/
-    char * cour   = chaine;                                      /*Pointeur sur la fin de la chaine */
-
-    int i = 0; /*Compteur*/
-
-    if (!estVideFile(file)) {
-        for (i=0; i<file->nbElements; i++) {
-            pfEcrire(file->base[(file->indexSuppression + i) % file->capacite], cour);
-            cour += strlen(cour);
-        }
-
-    } else {
-        sprintf(cour, "vide");
-    }
-
-    return chaine;
-}
-
-
-void ecrireFileIntDansChaine(int nombre, char * chaine) {
-    sprintf(chaine, "%d ", nombre);
-}
-
-
-void ecrireFileCharDansChaine(char caractere, char * chaine) {
-    sprintf(chaine, "%c ", caractere);
 }

@@ -1,3 +1,7 @@
+/* ---------------------------------------------------------------------------- */
+/*  main.c                                                                      */
+/*           Contient le programme principal et l'inversion d'une pile          */
+/* ---------------------------------------------------------------------------- */
 
 #include <stdio.h>
 #include "testPile.h"
@@ -6,12 +10,11 @@
 #include "file.h"
 
 
-
 void InverserPile(pile_t * pile) {
-	int  i        = 0;                 /*Compteur*/
-	type valeur   = 0;                 /*Valeur d'entrée/sortie de la pile ou file*/
-	int  nbElems  = pile->sommet + 1;  /*Nombre d'elements dans la pile, à inverser*/
-	file_t * file = initFile(nbElems); /*File temporaire permettant d'inverser la pile*/
+	int      i        = 0;                 /*Compteur*/
+	type     valeur   = 0;                 /*Valeur d'entrée/sortie de la pile ou file*/
+	int      nbElems  = pile->sommet + 1;  /*Nombre d'elements dans la pile, à inverser*/
+	file_t * file     = initFile(nbElems); /*File temporaire permettant d'inverser la pile*/
 
 	/* Inversion de la pile */
 	if (file != NULL) {
@@ -36,30 +39,34 @@ void InverserPile(pile_t * pile) {
 
 
 int main(int argc, char const *argv[]) {
-    if (argc >= 2 && *argv[1] == '1') {
-        if (TestUnitairePile() == 1)
-            printf("Fonctions pile fonctionne\n\n");
-        else
-            printf("Fonctions pile ne fonctionne pas\n\n");
+
+	if (argc >= 2 && *argv[1] == '1') {
+
+		if (TestUnitairePile() == 1)
+			printf("\033[33m     Fonctions pile \033[32mfonctionne\033[00m\n\n");
+		else
+			printf("\033[33m     Fonctions pile \033[31mne fonctionne pas\033[00m\n\n");
 
 
-        if (TestUnitaireFile())
-            printf("Fonctions file fonctionne\n\n");
-        else
-            printf("Fonctions file ne fonctoinne pas\n\n");
-    } else {
+		if (TestUnitaireFile())
+			printf("\033[33m     Fonctions file \033[32mfonctionne\033[00m\n\n");
+		else
+			printf("\033[33m     Fonctions file \033[31mne fonctoinne pas\033[00m\n\n");
 
-        int n = 26;
-        pile_t * pile = InitPile(n);
-        for (int i=0; i<n; i++)
-            Empiler(pile, 97+i);
-        
-        AfficherPile(pile, &AfficherPileChar);
-        InverserPile(pile);
-        AfficherPile(pile, &AfficherPileChar);
+	} else {
 
-        LibererPile(pile);
-    }
+		int n = 26;
+		pile_t * pile = InitPile(n);
 
-    return 0;
+		for (int i=0; i<n; i++)
+			Empiler(pile, 97+i);
+
+		AfficherPile(pile, AfficherPileChar);
+		InverserPile(pile);
+		AfficherPile(pile, AfficherPileChar);
+
+		LibererPile(pile);
+	}
+
+	return 0;
 }

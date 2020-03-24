@@ -1,7 +1,10 @@
+/* ---------------------------------------------------------------------------- */
+/*  pile.c                                                                      */
+/*                  Contient les fonctions associées à la pile                  */
+/* ---------------------------------------------------------------------------- */
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "pile.h"
 
 
@@ -71,7 +74,7 @@ int Empiler(pile_t * pile, type v) {
 }
 
 
-int Depiler (pile_t * pile, type * v) {
+int Depiler(pile_t * pile, type * v) {
     int codeErreur = 1;
     
     /* Si la pile est non vide, on depile */
@@ -91,7 +94,7 @@ int Depiler (pile_t * pile, type * v) {
 }
 
 
-int RedimensionerPile (pile_t * pile, int nvCapacite) {
+int RedimensionerPile(pile_t * pile, int nvCapacite) {
     int codeErreur = 1;
 
     /* On realloc la base */
@@ -106,7 +109,7 @@ int RedimensionerPile (pile_t * pile, int nvCapacite) {
 }
 
 
-void AfficherPile (pile_t * pile, void (*pfAfficher) (type)) {
+void AfficherPile(pile_t * pile, void (*pfAfficher) (type)) {
 
     printf("Pile : capacite=%d\n", (*pile).capacite);
     printf("       ");
@@ -123,48 +126,16 @@ void AfficherPile (pile_t * pile, void (*pfAfficher) (type)) {
 }
 
 
-void AfficherPileInt (int nombre) {
+void AfficherPileInt(int nombre) {
     printf("%d ", nombre);
 }
 
 
-void AfficherPileChar (char caractere) {
+void AfficherPileChar(char caractere) {
     printf("%c ", caractere);
 }
 
 
-void AfficherPileChaineCarac (char * chaine) {
+void AfficherPileChaineCarac(char * chaine) {
     printf("%s ", chaine);
-}
-
-
-char * EcrirePileDansChaine (pile_t * pile, void (*pfAfficher) (type, char *), int taille) {
-    /* On alloc une taille previsionnel de l'affichage de la pile */
-    char * chaine = malloc( taille*(*pile).capacite*sizeof(char) ); /* pointeur sur la debut de la chaine */
-    char * cour = chaine;   /* pointeur que la fin de la chaine */
-
-    if (!EstVidePile(pile)) {
-
-        int n = (*pile).sommet + 1;
-        for (int i=0; i<n; i++) {
-            /* On ajoute l'affichage a la fin de la chaine */
-            (*pfAfficher) ((*pile).base[i], cour);
-            /* On decale le pointeur a la fin de la chaine */
-            cour += strlen(cour);
-        }
-    } else {
-        strcpy(cour, "vide");
-    }
-
-    return chaine;
-}
-
-
-void EcrirePileIntDansChaine(int nombre, char * chaine) {
-    sprintf(chaine, "%d ", nombre);
-}
-
-
-void EcrirePileCharDansChaine(char carac, char * chaine) {
-    sprintf(chaine, "%c ", carac);
 }
