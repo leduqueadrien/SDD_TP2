@@ -1,15 +1,51 @@
+/* ----------------------------------------------------------------------------- */
+/*  testFile.h                                                                   */
+/*      Contient tous les tests pour les fonctions de manipulation de la file    */
+/* ----------------------------------------------------------------------------- */
 
 #ifndef TUFILE
 #define TUFILE
 #include "file.h"
 
-
+/* ----------------------------------------------------------------------------- */
+/* testUnitaireFile    Fonction appelant toutes les fonctions de test de la file */
+/*                                                                               */
+/* En entrée : void                                                              */
+/* En sortie : void                                                              */
+/* ----------------------------------------------------------------------------- */
 int testUnitaireFile();
+
+/* ----------------------------------------------------------------------------- */
+/* testInitFile     Fonction qui test la fonction d'initialisation de la file    */
+/*                                                                               */
+/* En entrée : void                                                              */
+/* En sortie : void                                                              */
+/* ----------------------------------------------------------------------------- */
 int testInitFile();
+
+/* ----------------------------------------------------------------------------- */
+/* testFileEstVide   Fonction qui test la fonction testant si la file est vide   */
+/*                                                                               */
+/* En entrée : void                                                              */
+/* En sortie : void                                                              */
+/* ----------------------------------------------------------------------------- */
 int testFileEstVide();
+
+/* ----------------------------------------------------------------------------- */
+/* testEnfiler      Fonction qui test si la fonction d'enfilage de la file       */
+/*                                                                               */
+/* En entrée : void                                                              */
+/* En sortie : void                                                              */
+/* ----------------------------------------------------------------------------- */
 int testEnfiler();
+
+/* ----------------------------------------------------------------------------- */
+/* testDefiler      Fonction qui test si la fonction de défilage de la file      */
+/*                                                                               */
+/* En entrée : void                                                              */
+/* En sortie : void                                                              */
+/* ----------------------------------------------------------------------------- */
 int testDefiler();
-int testAfficherFile();
 
 
 /* ----------------------------------------------------------------------------------------- */

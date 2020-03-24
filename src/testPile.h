@@ -1,14 +1,64 @@
+/* ----------------------------------------------------------------------------- */
+/*  testPile.h                                                                   */
+/*      Contient tous les tests pour les fonctions de manipulation de la pile    */
+/* ----------------------------------------------------------------------------- */
 
 #ifndef TUPILE
 #define TUPILE
 #include "pile.h"
 
+/* ----------------------------------------------------------------------------- */
+/* testUnitairePile    Fonction appelant toutes les fonctions de test de la pile */
+/*                                                                               */
+/* En entrée : void                                                              */
+/* En sortie : void                                                              */
+/* ----------------------------------------------------------------------------- */
 int testUnitairePile();
+
+
 int testAfficherPile();
+
+/* ----------------------------------------------------------------------------- */
+/* testInitPile     Fonction qui test la fonction d'initialisation de la pile    */
+/*                                                                               */
+/* En entrée : void                                                              */
+/* En sortie : void                                                              */
+/* ----------------------------------------------------------------------------- */
 int testInitPile();
+
+
+/* ----------------------------------------------------------------------------- */
+/* testPileEstVide   Fonction qui test la fonction testant si la pile est vide   */
+/*                                                                               */
+/* En entrée : void                                                              */
+/* En sortie : void                                                              */
+/* ----------------------------------------------------------------------------- */
 int testEstVidePile();
+
+/* ----------------------------------------------------------------------------- */
+/* testPileEstVide   Fonction qui test la fonction testant si la pie est pleine  */
+/*                                                                               */
+/* En entrée : void                                                              */
+/* En sortie : void                                                              */
+/* ----------------------------------------------------------------------------- */
 int testEstPleinePile();
+
+
+/* ----------------------------------------------------------------------------- */
+/* testEnfiler      Fonction qui test si la fonction d'enfilage de la pile       */
+/*                                                                               */
+/* En entrée : void                                                              */
+/* En sortie : void                                                              */
+/* ----------------------------------------------------------------------------- */
 int testEmpiler();
+
+
+/* ----------------------------------------------------------------------------- */
+/* testDefiler      Fonction qui test si la fonction de défilage de la pile      */
+/*                                                                               */
+/* En entrée : void                                                              */
+/* En sortie : void                                                              */
+/* ----------------------------------------------------------------------------- */
 int testDepiler();
 
 
