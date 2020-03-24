@@ -55,50 +55,6 @@ int testUnitairePile() {
 }
 
 
-int testAfficherPile() {
-    int code = 1;
-    pile_t * pile = initPile(3);
-    char * chaine;
-
-    chaine = ecrirePileDansChaine(pile, &ecrirePileCharDansChaine, 4);
-    printf("Affichage pile vide : ");
-    if (!strcmp("vide", chaine)) {
-        printf("\033[32mbon\033[00m\n");
-    } else {
-        code = 0;
-        printf("\033[31mfaux\033[00m\n");
-    }
-    free(chaine);
-    
-    empiler(pile, '1');
-    chaine = ecrirePileDansChaine(pile, &ecrirePileCharDansChaine, 4);
-    printf("Affichage pile 1 element : ");
-    if (!strcmp("1 ", chaine)) {
-        printf("\033[32mbon\033[00m\n");
-    } else {
-        code = 0;
-        printf("\033[31mfaux\033[00m\n");
-    }
-    free(chaine);
-
-    empiler(pile, '2');
-    empiler(pile, '3');
-    chaine = ecrirePileDansChaine(pile, &ecrirePileCharDansChaine, 4);
-    printf("Affichage pile pleine : ");
-    if (!strcmp("1 2 3 ", chaine)) {
-        printf("\033[32mbon\033[00m\n");
-    } else {
-        code = 0;
-        printf("\033[31mfaux\033[00m\n");
-    }
-    free(chaine);
-
-    libererPile(pile);
-
-    return code;
-}
-
-
 int testInitPile() {
     int code = 1;
     pile_t * pile = initPile(3);

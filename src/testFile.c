@@ -69,6 +69,14 @@ int testInitFile() {
         printf("\033[31mfaux\033[00m\n");
     }
 
+    printf("Initialiser nombre d'element : ");
+    if ((*file).nbElements == 0) {
+        printf("\033[32mbon\033[00m\n");
+    } else {
+        code = 0;
+        printf("\033[31mfaux\033[00m\n");
+    }
+
     libererFile(file);
 
     return code;
@@ -112,6 +120,62 @@ int testFileEstVide() {
 }
 
 
+int testEstPleineFile() {
+    int code = 1;
+    file_t * file = initFile(3);
+    type v;
+
+    printf("File vide : ");
+    if (!estPleineFile(file)) {
+        printf("\033[32mbon\033[00m\n");
+    } else {
+        code = 0;
+        printf("\033[31mfaux\033[00m\n");
+    }
+
+    enfiler(file, '1');
+    printf("File partiellement pleine : ");
+    if (!estPleineFile(file)) {
+        printf("\033[32mbon\033[00m\n");
+    } else {
+        code = 0;
+        printf("\033[31mfaux\033[00m\n");
+    }
+
+    enfiler(file, '2');
+    enfiler(file, '3');
+    printf("File pleine : ");
+    if (estPleineFile(file)) {
+        printf("\033[32mbon\033[00m\n");
+    } else {
+        code = 0;
+        printf("\033[31mfaux\033[00m\n");
+    }
+
+    defiler(file, &v);
+    defiler(file, &v);
+    printf("File plus pleine : ");
+    if (!estPleineFile(file)) {
+        printf("\033[32mbon\033[00m\n");
+    } else {
+        code = 0;
+        printf("\033[31mfaux\033[00m\n");
+    }
+
+    enfiler(file, '1');
+    enfiler(file, '2');
+    printf("File de nouveau pleine : ");
+    if (estPleineFile(file)) {
+        printf("\033[32mbon\033[00m\n");
+    } else {
+        code = 0;
+        printf("\033[31mfaux\033[00m\n");
+    }
+
+    return code;
+}
+
+
 int testEnfiler() {
     int code = 1;
     file_t * file = initFile(3);
@@ -120,8 +184,8 @@ int testEnfiler() {
 
     enfiler(file, '1');
     chaine = ecrireFileDansChaine(file, ecrireFileCharDansChaine, 4);
-    printf("Emfile 1 element : ");
-    if (!strcmp("1 ", chaine)) {
+    printf("Emfilage file vide : ");
+    if (!strcmp("1 ", chaine) && (*file).indexSuppression == 0 && (*file).indexInsertion == 1 && (*file).nbElements == 1) {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
@@ -130,10 +194,20 @@ int testEnfiler() {
     free(chaine);
 
     enfiler(file, '2');
+    chaine = ecrireFileDansChaine(file, ecrireFileCharDansChaine, 4);
+    printf("Enfilage jusqu'a file presque pleine : ");
+    if (!strcmp("1 2 ", chaine) && (*file).indexSuppression == 0 && (*file).indexInsertion == 2 && (*file).nbElements == 2) {
+        printf("\033[32mbon\033[00m\n");
+    } else {
+        code = 0;
+        printf("\033[31mfaux\033[00m\n");
+    }
+
+
     enfiler(file, '3');
     chaine = ecrireFileDansChaine(file, ecrireFileCharDansChaine, 4);
-    printf("Emfile jusqu'a ce que le file soit pleine : ");
-    if (!strcmp("1 2 3 ", chaine)) {
+    printf("Enfile jusqu'a file pleine : ");
+    if (!strcmp("1 2 3 ", chaine) && (*file).indexSuppression == 0 && (*file).indexInsertion == 0 && (*file).nbElements == 3) {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
@@ -144,7 +218,7 @@ int testEnfiler() {
     enfiler(file, '4');
     chaine = ecrireFileDansChaine(file, ecrireFileCharDansChaine, 4);
     printf("Redimensionnement sans avoir defiler : ");
-    if (!strcmp("1 2 3 4 ", chaine) && (*file).capacite == 5) {
+    if (!strcmp("1 2 3 4 ", chaine) && (*file).capacite == 5 && (*file).indexSuppression == 0 && (*file).indexInsertion == 4 && (*file).nbElements == 4) {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
@@ -163,7 +237,7 @@ int testEnfiler() {
     enfiler(file, '4');
     chaine = ecrireFileDansChaine(file, ecrireFileCharDansChaine, 4);
     printf("Enfiler apres avoir defiler : ");
-    if (!strcmp("3 4 ", chaine)) {
+    if (!strcmp("3 4 ", chaine) && (*file).indexSuppression == 2 && (*file).indexInsertion == 1  && (*file).nbElements == 2) {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
@@ -175,7 +249,7 @@ int testEnfiler() {
     enfiler(file, '6');
     chaine = ecrireFileDansChaine(file, ecrireFileCharDansChaine, 4);
     printf("Redimensionnement apres avoir defiler : ");
-    if (!(strcmp("3 4 5 6 ", chaine) && (*file).capacite == 5)) {
+    if (!(strcmp("3 4 5 6 ", chaine) && (*file).capacite == 5) && (*file).indexSuppression == 0 && (*file).indexInsertion == 4 && (*file).nbElements == 4) {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
@@ -198,7 +272,7 @@ int testDefiler() {
     defiler(file, &v);
     chaine = ecrireFileDansChaine(file, ecrireFileCharDansChaine, 4);
     printf("Defiler a vide : ");
-    if (!strcmp("vide", chaine) && v == 2 && (*file).indexSuppression == 0 && (*file).indexInsertion == 0) {
+    if (!strcmp("vide", chaine) && v == 2 && (*file).indexSuppression == 0 && (*file).indexInsertion == 0 && (*file).nbElements == 0) {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
@@ -209,8 +283,8 @@ int testDefiler() {
     enfiler(file, '3');
     defiler(file, &v);
     chaine = ecrireFileDansChaine(file, ecrireFileCharDansChaine, 4);
-    printf("Defilage : ");
-    if (!strcmp("vide", chaine) && v == '3') {
+    printf("Defilage file 1 element : ");
+    if (!strcmp("vide", chaine) && v == '3' && (*file).indexSuppression == 0 && (*file).indexInsertion == 0 && (*file).nbElements == 0) {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;
@@ -224,7 +298,7 @@ int testDefiler() {
     defiler(file, &v);
     chaine = ecrireFileDansChaine(file, ecrireFileCharDansChaine, 4);
     printf("Defilage pile pleine : ");
-    if (!strcmp("2 3 ", chaine) && v == '1') { 
+    if (!strcmp("2 3 ", chaine) && v == '1' && (*file).indexSuppression == 1 && (*file).indexInsertion == 3 && (*file).nbElements == 2) { 
         printf("\033[32mbon\033[00m\n") ;
     } else {
         code = 0;
@@ -239,7 +313,7 @@ int testDefiler() {
     defiler(file, &v);
     chaine = ecrireFileDansChaine(file, ecrireFileCharDansChaine, 4);
     printf("Redimensionnement : ");
-    if (!strcmp("vide", chaine) && (*file).capacite == 6) {
+    if (!strcmp("vide", chaine) && (*file).capacite == 6 && (*file).indexSuppression == 0 && (*file).indexInsertion == 0 && (*file).nbElements == 0) {
         printf("\033[32mbon\033[00m\n");
     } else {
         code = 0;

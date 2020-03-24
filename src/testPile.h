@@ -16,8 +16,6 @@
 int testUnitairePile();
 
 
-int testAfficherPile();
-
 /* ----------------------------------------------------------------------------- */
 /* testInitPile     Fonction qui test la fonction d'initialisation de la pile    */
 /*                                                                               */
@@ -36,7 +34,7 @@ int testInitPile();
 int testEstVidePile();
 
 /* ----------------------------------------------------------------------------- */
-/* testPileEstVide   Fonction qui test la fonction testant si la pie est pleine  */
+/* testEstPleinePile  Fonction qui test la fonction testant si la pie est pleine */
 /*                                                                               */
 /* En entrée : void                                                              */
 /* En sortie : void                                                              */

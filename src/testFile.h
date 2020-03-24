@@ -32,6 +32,14 @@ int testInitFile();
 int testFileEstVide();
 
 /* ----------------------------------------------------------------------------- */
+/* testEstPleineFile  Fonction qui test la fonction testant si la pie est pleine */
+/*                                                                               */
+/* En entrée : void                                                              */
+/* En sortie : void                                                              */
+/* ----------------------------------------------------------------------------- */
+int testEstPleineFile();
+
+/* ----------------------------------------------------------------------------- */
 /* testEnfiler      Fonction qui test si la fonction d'enfilage de la file       */
 /*                                                                               */
 /* En entrée : void                                                              */
