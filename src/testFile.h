@@ -32,7 +32,7 @@ int testInitFile();
 int testFileEstVide();
 
 /* ----------------------------------------------------------------------------- */
-/* testEstPleineFile  Fonction qui test la fonction testant si la pie est pleine */
+/* testEstPleineFile  Fonction qui test la fonction testant si la pile est pleine */
 /*                                                                               */
 /* En entrée : void                                                              */
 /* En sortie : void                                                              */
@@ -40,7 +40,7 @@ int testFileEstVide();
 int testEstPleineFile();
 
 /* ----------------------------------------------------------------------------- */
-/* testEnfiler      Fonction qui test si la fonction d'enfilage de la file       */
+/* testEnfiler      Fonction qui test la fonction d'enfilage de la file       */
 /*                                                                               */
 /* En entrée : void                                                              */
 /* En sortie : void                                                              */
@@ -48,7 +48,7 @@ int testEstPleineFile();
 int testEnfiler();
 
 /* ----------------------------------------------------------------------------- */
-/* testDefiler      Fonction qui test si la fonction de défilage de la file      */
+/* testDefiler      Fonction qui test la fonction de défilage de la file      */
 /*                                                                               */
 /* En entrée : void                                                              */
 /* En sortie : void                                                              */

@@ -43,7 +43,7 @@ int testEstPleinePile();
 
 
 /* ----------------------------------------------------------------------------- */
-/* testEnfiler      Fonction qui test si la fonction d'enfilage de la pile       */
+/* testEnfiler      Fonction qui test la fonction d'enfilage de la pile       */
 /*                                                                               */
 /* En entrée : void                                                              */
 /* En sortie : void                                                              */
@@ -52,7 +52,7 @@ int testEmpiler();
 
 
 /* ----------------------------------------------------------------------------- */
-/* testDefiler      Fonction qui test si la fonction de défilage de la pile      */
+/* testDefiler      Fonction qui test la fonction de défilage de la pile      */
 /*                                                                               */
 /* En entrée : void                                                              */
 /* En sortie : void                                                              */
