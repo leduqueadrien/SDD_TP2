@@ -156,6 +156,17 @@ int testEstVidePile() {
         printf("\033[31mfaux\033[00m\n");
     }
 
+    empiler(pile, '1');
+    empiler(pile, '2');
+    empiler(pile, '3');
+    printf("Pile plein : ");
+    if (!estVidePile(pile)) {
+        printf("\033[32mbon\033[00m\n");
+    } else {
+        code = 0;
+        printf("\033[31mfaux\033[00m\n");
+    }
+
     libererPile(pile);
 
     return code;
@@ -167,7 +178,7 @@ int testEstPleinePile() {
     pile_t * pile = initPile(2);
     char v;
 
-    printf("Pile est vide (non pleine) : ");
+    printf("Pile est vide : ");
     if (estPleinePile(pile) == 0) {
         printf("\033[32mbon\033[00m\n");
     } else {
@@ -258,6 +269,21 @@ int testEmpiler() {
 
     libererPile(pile);
     
+    pile = initPile(0);
+
+    empiler(pile, '1');
+    chaine = ecrirePileDansChaine(pile, &ecrirePileCharDansChaine, 4);
+    printf("pile de capacite 0 : ");
+    if (!strcmp("1 ", chaine) && (*pile).capacite == 1) {
+        printf("\033[32mbon\033[00m\n");
+    } else {
+        code = 0;
+        printf("\033[31mfaux\033[00m\n");
+    }
+    free(chaine);
+
+    libererPile(pile);
+
     return code;
 }
 
