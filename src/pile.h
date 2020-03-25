@@ -15,9 +15,9 @@ typedef char type;
 /* -------------------- */
 /* Structure de la pile */
 /* -------------------- */
-typedef struct Pile {
-    int   capacite;
-    int   sommet;
+typedef struct pile {
+    int    capacite;
+    int    sommet;
     type * base;
 } pile_t;
 
