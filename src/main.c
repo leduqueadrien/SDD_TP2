@@ -64,8 +64,8 @@ int main(int argc, char const *argv[]) {
 
 	} else {
 
-		int n = 10;
-		pile_t * pile = initPile(n);
+		int n = 26;
+		pile_t * pile = initPile(10);
 
 		for (int i=0; i<n; i++)
 			empiler(pile, 97+i);
