@@ -9,25 +9,32 @@
 #include "pile.h"
 #include "file.h"
 
-
-void inverserPile(pile_t * pile) {
-	int      i        = 0;                 /*Compteur*/
-	type     valeur   = 0;                 /*Valeur d'entrée/sortie de la pile ou file*/
-	int      nbElems  = pile->sommet + 1;  /*Nombre d'elements dans la pile, à inverser*/
-	file_t * file     = initFile(nbElems); /*File temporaire permettant d'inverser la pile*/
+/* -------------------------------------------------------------- */
+/* inverserPile     Inverse la pile passée en paramètre           */
+/*                                                                */
+/* En entrée :  pile (pile *) : Pile à inverser                   */
+/*                                                                */
+/* En sortie :  codeErreur (char) booléen : 1 si erreur, 0 sinon  */
+/* -------------------------------------------------------------- */
+char inverserPile(pile_t * pile) {
+	char     codeErreur = 1;
+	int      i          = 0;                 /*Compteur*/
+	type     valeur     = 0;                 /*Valeur d'entrée/sortie de la pile ou file*/
+	int      nbElems    = pile->sommet + 1;  /*Nombre d'elements dans la pile, à inverser*/
+	file_t * file       = initFile(nbElems); /*File temporaire permettant d'inverser la pile*/
 
 	/* Inversion de la pile */
 	if (file != NULL) {
 		/* On vide la pile, on rempli la file */
 		for (i=0; i<nbElems; i++) {
-			depiler(pile, &valeur);
-			enfiler(file, valeur);
+			codeErreur = depiler(pile, &valeur);
+			codeErreur = enfiler(file, valeur);
 		}
 
 		/* On vide la file, on rempli la pile */
 		for (i=0; i<nbElems; i++) {
-			defiler(file, &valeur);
-			empiler(pile, valeur);
+			codeErreur = defiler(file, &valeur);
+			codeErreur = empiler(pile, valeur);
 		}
 
 		/* La pile est alors inversée */
@@ -35,6 +42,8 @@ void inverserPile(pile_t * pile) {
 
 		libererFile(file);
 	}
+
+	return codeErreur;
 }
 
 
@@ -62,8 +71,10 @@ int main(int argc, char const *argv[]) {
 			empiler(pile, 97+i);
 
 		afficherPile(pile, afficherPileChar);
-		inverserPile(pile);
-		afficherPile(pile, afficherPileChar);
+		if (!inverserPile(pile))
+			afficherPile(pile, afficherPileChar);
+		else
+			printf("Erreur lors de l'inversion de la pile\n");
 
 		libererPile(pile);
 	}

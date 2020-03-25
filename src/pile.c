@@ -115,7 +115,7 @@ void afficherPile(pile_t * pile, void (*pfAfficher) (type)) {
     printf("       ");
     
     if(!estVidePile(pile)) {
-        /* On affiche chaque element un par un en appellant la fonction d'aafichage */
+        /* On affiche chaque element un par un en appellant la fonction d'afichage */
         for (int i=0; i <=(*pile).sommet; i++)
             (*pfAfficher) ( (*pile).base[i] );
     } else {
